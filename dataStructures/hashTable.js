@@ -5,7 +5,7 @@
 class hashTable {
   constructor(size) {
     this.size = size;
-    this.data = new Array(size);
+    this.table = new Array(size);
   }
 
   _hash(key = "") {
@@ -15,22 +15,24 @@ class hashTable {
       hash = (hash + key.charCodeAt(i) * i) % this.size;
     }
 
+    console.log(hash);
+
     return hash;
   }
 
   set(key, value) {
     const address = this._hash(key);
-    if (!this.data[address]) {
-      this.data[address] = [];
+    if (!this.table[address]) {
+      this.table[address] = [];
     }
 
-    this.data[address].push([key, value]);
-    return this.data;
+    this.table[address].push([key, value]);
+    return this.table;
   }
 
   get(key) {
     const address = this._hash(key);
-    const currentBucket = this.data[address];
+    const currentBucket = this.table[address];
 
     if (currentBucket) {
       for (let i = 0; i < currentBucket.length; i++) {
