@@ -12,7 +12,7 @@ class hashTable {
     let hash = 0;
 
     for (let i = 0; i < key.length; i++) {
-      hash += (key.charCodeAt(i) * i) % this.size;
+      hash = (hash + key.charCodeAt(i) * i) % this.size;
     }
 
     return hash;
@@ -49,6 +49,6 @@ const myHashTable = new hashTable(50);
 myHashTable.set("John Doe", 28);
 myHashTable.set("Jane Smith", 32);
 
-// console.log(myHashTable.get("John Doe")); // Output: 28
-// console.log(myHashTable.get("Jane Smith")); // Output: 32
-// console.log(myHashTable.get("Bob Johnson")); // Output: undefined
+console.log(myHashTable.get("John Doe")); // Output: 28
+console.log(myHashTable.get("Jane Smith")); // Output: 32
+console.log(myHashTable.get("Bob Johnson")); // Output: undefined
