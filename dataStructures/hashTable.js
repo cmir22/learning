@@ -1,8 +1,4 @@
-//
-// Hash table
-//
-
-class hashTable {
+class HashTable {
   constructor(size) {
     this.size = size;
     this.table = new Array(size);
@@ -12,45 +8,42 @@ class hashTable {
     let hash = 0;
 
     for (let i = 0; i < key.length; i++) {
-      hash = (hash + key.charCodeAt(i) * i) % this.size;
+      hash += key.charCodeAt(i);
     }
 
-    console.log(hash);
-
-    return hash;
+    return hash % this.size;
   }
 
   set(key, value) {
-    const address = this._hash(key);
-    if (!this.table[address]) {
-      this.table[address] = [];
+    const index = this._hash(key);
+
+    if (!this.table[index]) {
+      this.table[index] = [];
     }
 
-    this.table[address].push([key, value]);
-    return this.table;
+    this.table[index].push({ key, value });
   }
 
   get(key) {
-    const address = this._hash(key);
-    const currentBucket = this.table[address];
+    const index = this._hash(key);
 
-    if (currentBucket) {
-      for (let i = 0; i < currentBucket.length; i++) {
-        if (currentBucket[i][0] === key) {
-          return currentBucket[i][0];
+    if (this.table[index]) {
+      for (let i = 0; i < this.table[index].length; i++) {
+        if (this.table[index][i].key === key) {
+          return this.table[index][i].value;
         }
       }
     }
-
     return undefined;
   }
 }
 
-const myHashTable = new hashTable(50);
+const hashTable = new HashTable(10);
 
-myHashTable.set("John Doe", 28);
-myHashTable.set("Jane Smith", 32);
+hashTable.set("Adilene", "Machado");
+hashTable.set("Cruz", "Ibarra");
+hashTable.set("Cruzd", "Ibarra");
+// hashTable.set("Cwadwruz", "Ibarra");
 
-console.log(myHashTable.get("John Doe")); // Output: 28
-console.log(myHashTable.get("Jane Smith")); // Output: 32
-console.log(myHashTable.get("Bob Johnson")); // Output: undefined
+hashTable.get("Cruz");
+hashTable.get("Cruzd");
